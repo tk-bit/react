@@ -2,13 +2,12 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { createOrder, detailsOrder, payOrder } from '../actions/orderActions';
-import Razorpay from '../components/Razorpay';
+import PaypalButton from '../components/PaypalButton';
+import displayRazorpay from '../components/displayRazorpay';
 
 
 function OrderScreen(props) {
 
-  const userSignin = useSelector(state => state.userSignin);
-  const { userInfo } = userSignin;
   const orderPay = useSelector(state => state.orderPay);
   const { loading: loadingPay, success: successPay, error: errorPay } = orderPay;
   const dispatch = useDispatch();
@@ -29,20 +28,11 @@ function OrderScreen(props) {
   const orderDetails = useSelector(state => state.orderDetails);
   const { loading, order, error } = orderDetails;
 
-  return loading ? <div className="loading"></div> : error ? <div>{error}</div> :
+  return loading ? <div>Loading ...</div> : error ? <div>{error}</div> :
 
     <div>
       <div className="placeorder">
         <div className="placeorder-info">
-        <div>
-          <h3>
-            User Info
-          </h3>
-          <div>
-            Name: {userInfo.name} <br></br>
-            Email Id: {userInfo.email}
-          </div>
-        </div>
           <div>
             <h3>
               Shipping
@@ -97,7 +87,7 @@ function OrderScreen(props) {
                         </div>
                       </div>
                       <div className="cart-price">
-                      &#x20B9;{item.price}
+                        ${item.price}
                       </div>
                     </li>
                   )
@@ -112,29 +102,30 @@ function OrderScreen(props) {
             <li className="placeorder-actions-payment">
               {loadingPay && <div>Finishing Payment...</div>}
               {!order.isPaid &&
-                <Razorpay
+                <displayRazorpay
                   amount={order.totalPrice}
-                  onSuccess={handleSuccessPayment} />
+                  onSuccess={handleSuccessPayment} />                
               }
             </li>
+            <li><button id="btn" onClick={displayRazorpay} className="button">Pay with Razorpay</button></li>
             <li>
               <h3>Order Summary</h3>
             </li>
             <li>
               <div>Items</div>
-              <div>&#x20B9;{order.itemsPrice}</div>
+              <div>${order.itemsPrice}</div>
             </li>
             <li>
               <div>Shipping</div>
-              <div>&#x20B9;{order.shippingPrice}</div>
+              <div>${order.shippingPrice}</div>
             </li>
             <li>
               <div>Tax</div>
-              <div>&#x20B9;{order.taxPrice}</div>
+              <div>${order.taxPrice}</div>
             </li>
             <li>
               <div>Order Total</div>
-              <div>&#x20B9;{order.totalPrice}</div>
+              <div>${order.totalPrice}</div>
             </li>
           </ul>
 

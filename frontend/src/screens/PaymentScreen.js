@@ -30,10 +30,10 @@ function PaymentScreen(props) {
                   type="radio"
                   name="paymentMethod"
                   id="paymentMethod"
-                  value="razorpay"
+                  value="paypal"
                   onChange={(e) => setPaymentMethod(e.target.value)}
                 ></input>
-                <label for="paymentMethod">Pay with RazorPay</label>
+                <label for="paymentMethod">Paypal</label>
               </div>
             </li>
 

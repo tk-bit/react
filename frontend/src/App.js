@@ -15,23 +15,40 @@ import OrderScreen from './screens/OrderScreen';
 import ProfileScreen from './screens/ProfileScreen';
 import OrdersScreen from './screens/OrdersScreen';
 
+
+function loadScript(src){
+  return new Promise((resolve) => {
+    const script = document.createElement('script')
+    script.src = src
+    script.onload = () => {
+      resolve(true)
+    }
+    script.onerror = () => {
+      resolve(false)
+    }
+    document.body.appendChild(script)
+  })
+}
+
+
 function App() {
   const userSignin = useSelector((state) => state.userSignin);
-  const { userInfo } = userSignin;
+   const { userInfo } = userSignin;
 
-  const openMenu = () => {
-    document.querySelector('.sidebar').classList.add('open');
+   const openMenu = () => {
+     document.querySelector('.sidebar').classList.add('open');
+   };
+   const closeMenu = () => {
+     document.querySelector('.sidebar').classList.remove('open');
   };
-  const closeMenu = () => {
-    document.querySelector('.sidebar').classList.remove('open');
-  };
-  return (
+
+  return(
     <BrowserRouter>
       <div className="grid-container">
         <header className="header">
           <div className="brand">
             <button onClick={openMenu}>&#9776;</button>
-            <Link to="/">Basket</Link>
+            <Link to="/">Bantai Basket</Link>
           </div>
           <div className="header-links">
             <Link to="/cart">Cart</Link>
@@ -92,3 +109,4 @@ function App() {
 }
 
 export default App;
+export {loadScript};

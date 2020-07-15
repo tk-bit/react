@@ -481,8 +481,16 @@ tbody > tr:nth-child(odd) {
   100% { transform: rotate(360deg); }
 }
 
-
 .edit-image{
   width:50px;
   height:50px;
+}
+
+#btn{
+  background-image: linear-gradient(to right, rgb(216, 49, 250), rgb(71, 181, 245));
+  border-radius: 20px;
+  color: rgb(255, 255, 255);
+  font-weight: 800;
+  font-size: 20px;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
 }

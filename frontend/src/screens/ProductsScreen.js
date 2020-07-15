@@ -1,8 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import  axios from 'axios';
-import { saveProduct, deleteProduct, listProducts } from '../actions/productActions';
-
+import axios from 'axios';
+import {
+  saveProduct,
+  listProducts,
+  deleteProduct,
+} from '../actions/productActions';
 
 function ProductsScreen(props) {
   const [modalVisible, setModalVisible] = useState(false);
@@ -76,7 +79,6 @@ function ProductsScreen(props) {
     const file = e.target.files[0];
     const bodyFormData = new FormData();
     bodyFormData.append('image', file);
-    console.log(file);
     setUploading(true);
     axios
       .post('/api/uploads/s3', bodyFormData, {
@@ -115,34 +117,74 @@ function ProductsScreen(props) {
 
               <li>
                 <label htmlFor="name">Name</label>
-                <input type="text" name="name" value={name} id="name" onChange={(e) => setName(e.target.value)} required
+                <input
+                  type="text"
+                  name="name"
+                  value={name}
+                  id="name"
+                  onChange={(e) => setName(e.target.value)}
                 ></input>
               </li>
               <li>
                 <label htmlFor="price">Price</label>
-                <input type="text" name="price" value={price} id="price" onChange={(e) => setPrice(e.target.value)} required></input>
+                <input
+                  type="text"
+                  name="price"
+                  value={price}
+                  id="price"
+                  onChange={(e) => setPrice(e.target.value)}
+                ></input>
               </li>
               <li>
                 <label htmlFor="image">Image</label>
-                <input type="text" name="image" value={image} id="image" onChange={(e) => setImage(e.target.value)} required></input>
+                <input
+                  type="text"
+                  name="image"
+                  value={image}
+                  id="image"
+                  onChange={(e) => setImage(e.target.value)}
+                ></input>
                 <input type="file" onChange={uploadFileHandler}></input>
                 {uploading && <div>Uploading...</div>}
               </li>
               <li>
                 <label htmlFor="brand">Brand</label>
-                <input  type="text" name="brand" value={brand} id="brand" onChange={(e) => setBrand(e.target.value)} required></input>
+                <input
+                  type="text"
+                  name="brand"
+                  value={brand}
+                  id="brand"
+                  onChange={(e) => setBrand(e.target.value)}
+                ></input>
               </li>
               <li>
                 <label htmlFor="countInStock">CountInStock</label>
-                <input type="text" name="countInStock" value={countInStock} id="countInStock" onChange={(e) => setCountInStock(e.target.value)} required></input>
+                <input
+                  type="text"
+                  name="countInStock"
+                  value={countInStock}
+                  id="countInStock"
+                  onChange={(e) => setCountInStock(e.target.value)}
+                ></input>
               </li>
               <li>
                 <label htmlFor="name">Category</label>
-                <input type="text" name="category" value={category} id="category" onChange={(e) => setCategory(e.target.value)} required></input>
+                <input
+                  type="text"
+                  name="category"
+                  value={category}
+                  id="category"
+                  onChange={(e) => setCategory(e.target.value)}
+                ></input>
               </li>
               <li>
                 <label htmlFor="description">Description</label>
-                <textarea name="description" value={description} id="description" onChange={(e) => setDescription(e.target.value)} required></textarea>
+                <textarea
+                  name="description"
+                  value={description}
+                  id="description"
+                  onChange={(e) => setDescription(e.target.value)}
+                ></textarea>
               </li>
               <li>
                 <button type="submit" className="button primary">
@@ -169,7 +211,6 @@ function ProductsScreen(props) {
             <tr>
               <th>ID</th>
               <th>Name</th>
-              <th>Image</th>
               <th>Price</th>
               <th>Category</th>
               <th>Brand</th>
@@ -181,8 +222,7 @@ function ProductsScreen(props) {
               <tr key={product._id}>
                 <td>{product._id}</td>
                 <td>{product.name}</td>
-                <td><img className="edit-image" src={product.image}/></td>
-                <td>&#x20B9;{product.price}</td>
+                <td>{product.price}</td>
                 <td>{product.category}</td>
                 <td>{product.brand}</td>
                 <td>

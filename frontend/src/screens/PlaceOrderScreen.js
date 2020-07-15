@@ -10,9 +10,6 @@ function PlaceOrderScreen(props) {
   const orderCreate = useSelector(state => state.orderCreate);
   const { loading, success, error, order } = orderCreate;
 
-  const userSignin = useSelector(state => state.userSignin);
-  const { userInfo } = userSignin;
-
   const { cartItems, shipping, payment } = cart;
   if (!shipping.address) {
     props.history.push("/shipping");
@@ -40,20 +37,10 @@ function PlaceOrderScreen(props) {
 
   }, [success]);
 
-  
   return <div>
     <CheckoutSteps step1 step2 step3 step4 ></CheckoutSteps>
     <div className="placeorder">
       <div className="placeorder-info">
-      <div>
-          <h3>
-            User Info
-          </h3>
-          <div>
-            Name: {userInfo.name} <br></br>
-            Email Id: {userInfo.email}
-          </div>
-        </div>
         <div>
           <h3>
             Shipping
@@ -101,7 +88,9 @@ function PlaceOrderScreen(props) {
                         Qty: {item.qty}
                       </div>
                     </div>
-                    <div className="cart-price">&#x20B9;{item.price}</div>
+                    <div className="cart-price">
+                      ${item.price}
+                    </div>
                   </li>
                 )
             }
@@ -110,45 +99,39 @@ function PlaceOrderScreen(props) {
 
       
       </div>
-      
-
       <div className="placeorder-action">
         <ul>
+          <li>
+            <button className="button primary full-width" onClick={placeOrderHandler} >Place Order</button>
+          </li>
           <li>
             <h3>Order Summary</h3>
           </li>
           <li>
             <div>Items</div>
-            <div>&#x20B9;{itemsPrice}</div>
+            <div>${itemsPrice}</div>
           </li>
           <li>
             <div>Shipping</div>
-            <div>&#x20B9;{shippingPrice}</div>
+            <div>${shippingPrice}</div>
           </li>
           <li>
             <div>Tax</div>
-            <div>&#x20B9;{taxPrice}</div>
+            <div>${taxPrice}</div>
           </li>
           <li>
             <div>Order Total</div>
-            <div>&#x20B9;{totalPrice}</div>
-          </li>
-          <li>
-            <button className="button primary full-width" onClick={placeOrderHandler} >Place Order</button>
+            <div>${totalPrice}</div>
           </li>
         </ul>
-        
-      </div>
-      
-    </div>
-    
-  </div>
-  
 
+
+
+      </div>
+
+    </div>
+  </div>
 
 }
-
-
-
 
 export default PlaceOrderScreen;

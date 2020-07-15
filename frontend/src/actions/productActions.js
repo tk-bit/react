@@ -105,5 +105,5 @@ export {
   detailsProduct,
   saveProduct,
   deleteProduct,
-  saveProductReview,
+  saveProductReview
 };
