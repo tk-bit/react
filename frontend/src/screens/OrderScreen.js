@@ -5,7 +5,7 @@ import { createOrder, detailsOrder, payOrder } from '../actions/orderActions';
 import PaypalButton from '../components/PaypalButton';
 import displayRazorpay from '../components/displayRazorpay';
 
-
+var orderId;
 function OrderScreen(props) {
 
   const orderPay = useSelector(state => state.orderPay);
@@ -31,6 +31,7 @@ function OrderScreen(props) {
   return loading ? <div>Loading ...</div> : error ? <div>{error}</div> :
 
     <div>
+      <noscript>{orderId=order._id}</noscript>
       <div className="placeorder">
         <div className="placeorder-info">
           <div>
@@ -102,12 +103,13 @@ function OrderScreen(props) {
             <li className="placeorder-actions-payment">
               {loadingPay && <div>Finishing Payment...</div>}
               {!order.isPaid &&
-                <displayRazorpay
-                  amount={order.totalPrice}
-                  onSuccess={handleSuccessPayment} />                
+                // <PaypalButton
+                //   amount={order.totalPrice}
+                //   onSuccess={handleSuccessPayment} />
+                <button id="btn" onClick={displayRazorpay} className="button">Pay with Razorpay</button>            
               }
             </li>
-            <li><button id="btn" onClick={displayRazorpay} className="button">Pay with Razorpay</button></li>
+            <li></li>
             <li>
               <h3>Order Summary</h3>
             </li>
@@ -139,3 +141,4 @@ function OrderScreen(props) {
 }
 
 export default OrderScreen;
+export {orderId};
