@@ -5,7 +5,7 @@ import bodyParser from 'body-parser';
 import config from './config';
 import userRoute from './routes/userRoute';
 import productRoute from './routes/productRoute';
-import orderRoute from './routes/orderRoute';
+import orderRoute, { newOrderCreated } from './routes/orderRoute';
 import uploadRoute from './routes/uploadRoute';
 
 const cors = require('cors')
@@ -46,7 +46,7 @@ const razorpay = new Razorpay({
 
 app.post('/razorpay', async (req, res) => {
   const payment_capture = 1
-  const amount = 5
+  const amount = newOrderCreated.totalPrice
   const currency = 'INR'
 
   const options = {
